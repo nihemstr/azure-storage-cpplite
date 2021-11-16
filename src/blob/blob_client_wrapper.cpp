@@ -59,7 +59,7 @@ namespace azure {  namespace storage_lite {
             static const size_t s_block_size = 4*1024*1024;
         };
         static mempool mpool;
-        off_t get_file_size(const char* path);
+        off64_t get_file_size(const char* path);
 
         blob_client_wrapper blob_client_wrapper::blob_client_wrapper_init(const std::string &account_name, const std::string &account_key, const std::string &sas_token, const unsigned int concurrency)
         {
@@ -395,7 +395,7 @@ namespace azure {  namespace storage_lite {
                 return;
             }
 
-            off_t fileSize = get_file_size(sourcePath.c_str());
+            off64_t fileSize = get_file_size(sourcePath.c_str());
             if(fileSize < 0)
             {
                 /*errno already set by get_file_size*/
@@ -542,7 +542,7 @@ namespace azure {  namespace storage_lite {
             errno = result;
         }
 
-        off_t get_file_size(const char* path)
+        off64_t get_file_size(const char* path)
         {
             struct stat st;
             if(stat(path, &st) == 0)
